@@ -131,7 +131,7 @@ int main()
     cout << "Yours sincerely,\n\n\n";
 
     cout << "John Doe\n";
-    cout << "Registrar\n";
+    cout << "Registra\n";
 
     return 0;
 }
