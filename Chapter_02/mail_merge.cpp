@@ -28,3 +28,110 @@
 
 // John Doe
 // Registra
+#include <ctime>
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Returns the correct suffix for a date: 1st, 2nd, 3rd, 4th, etc.
+string getOrdinalSuffix(int day)
+{
+    if (day >= 11 && day <= 13)
+    {
+        return "th";
+    }
+
+    switch (day % 10)
+    {
+        case 1:
+            return "st";
+        case 2:
+            return "nd";
+        case 3:
+            return "rd";
+        default:
+            return "th";
+    }
+}
+
+// Converts a month number into its name.
+string getMonthName(int month)
+{
+    const string months[] = {
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+    };
+
+    return months[month - 1];
+}
+
+int main()
+{
+    string firstName;
+    string lastName;
+    string studyProgram;
+    string academicYear;
+
+    // Prompt the user to enter their information.
+    cout << "Enter your first name: ";
+    getline(cin, firstName);
+
+    cout << "Enter your last name: ";
+    getline(cin, lastName);
+
+    cout << "Enter your study program: ";
+    getline(cin, studyProgram);
+
+    cout << "Enter the academic year (for example, 2027/2028): ";
+    getline(cin, academicYear);
+
+    // Obtain the current date automatically.
+    time_t currentTime = time(nullptr);
+    tm localDate = *localtime(&currentTime);
+
+    int day = localDate.tm_mday;
+    int month = localDate.tm_mon + 1;
+    int year = localDate.tm_year + 1900;
+
+    // Display the acceptance letter.
+    cout << "\n\n";
+    cout << "Date: " << day << getOrdinalSuffix(day) << " "
+         << getMonthName(month) << " " << year << "\n\n";
+
+    cout << "To: " << firstName << " " << lastName << ",\n\n";
+
+    cout << "Dear " << firstName << ",\n\n";
+
+    cout << "CONGRATULATIONS! I am pleased to inform you that Makerere University\n";
+    cout << "Admissions Board has approved your application for admission to the\n";
+    cout << academicYear << " academic year.\n\n";
+
+    cout << "You have been offered a place for the following course:\n\n";
+
+    cout << "PROGRAM: " << studyProgram << "\n\n";
+
+    cout << "As a student of Makerere University, you will be part of a historic\n";
+    cout << "institution dedicated to academic excellence and innovation. Please ensure\n";
+    cout << "that you report to the Academic Registrar's office with your original\n";
+    cout << "academic documents for verification during the orientation week.\n\n";
+
+    cout << "We look forward to welcoming you to Makerere University.\n\n";
+
+    cout << "Yours sincerely,\n\n\n";
+
+    cout << "John Doe\n";
+    cout << "Registrar\n";
+
+    return 0;
+}
