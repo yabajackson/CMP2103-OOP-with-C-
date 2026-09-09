@@ -26,3 +26,95 @@
 // Enter the residence status: 0
 // Enter the taxable income: 4,000,000
 // Tax is 118000.
+#include <iomanip>
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int residenceStatus;
+    double taxableIncome;
+    double tax = 0.0;
+
+    cout << "PERSONAL INCOME TAX CALCULATOR\n";
+    cout << "==============================\n\n";
+
+    cout << "(0 - Resident, 1 - Non-resident)\n";
+    cout << "Enter the residence status: ";
+    cin >> residenceStatus;
+
+    if (residenceStatus != 0 && residenceStatus != 1)
+    {
+        cout << "Invalid residence status.\n";
+        cout << "Enter 0 for resident or 1 for non-resident.\n";
+        return 1;
+    }
+
+    cout << "Enter the taxable annual income: ";
+    cin >> taxableIncome;
+
+    if (taxableIncome < 0)
+    {
+        cout << "Taxable income cannot be negative.\n";
+        return 1;
+    }
+
+    if (residenceStatus == 0)
+    {
+        // Resident individual
+        if (taxableIncome <= 2820000)
+        {
+            tax = 0;
+        }
+        else if (taxableIncome <= 4020000)
+        {
+            tax = (taxableIncome - 2820000) * 0.10;
+        }
+        else if (taxableIncome <= 4920000)
+        {
+            tax = (taxableIncome - 4020000) * 0.20
+                  + 120000;
+        }
+        else if (taxableIncome <= 120000000)
+        {
+            tax = (taxableIncome - 4920000) * 0.30
+                  + 300000;
+        }
+        else
+        {
+            tax = (taxableIncome - 4920000) * 0.30
+                  + 300000
+                  + (taxableIncome - 120000000) * 0.10;
+        }
+    }
+    else
+    {
+        // Non-resident individual
+        if (taxableIncome <= 4020000)
+        {
+            tax = taxableIncome * 0.10;
+        }
+        else if (taxableIncome <= 4920000)
+        {
+            tax = (taxableIncome - 4020000) * 0.20
+                  + 402000;
+        }
+        else if (taxableIncome <= 120000000)
+        {
+            tax = (taxableIncome - 4920000) * 0.30
+                  + 582000;
+        }
+        else
+        {
+            tax = (taxableIncome - 4920000) * 0.30
+                  + 582000
+                  + (taxableIncome - 120000000) * 0.10;
+        }
+    }
+
+    cout << fixed << setprecision(0);
+    cout << "Tax is " << tax << "." << endl;
+
+    return 0;
+}
